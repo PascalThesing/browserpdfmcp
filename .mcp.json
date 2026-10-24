@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "browser-pdf": {
+      "command": "uv",
+      "args": ["run", "browser-pdf-mcp"]
+    }
+  }
+}

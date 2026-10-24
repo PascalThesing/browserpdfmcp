@@ -1,0 +1,75 @@
+[project]
+name = "browser-pdf-mcp"
+dynamic = ["version"]
+description = "MCP server that saves web pages as PDF files using Playwright"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Pascal Thesing", email = "pascal@thesing.me" }]
+requires-python = ">=3.10"
+keywords = ["mcp", "model-context-protocol", "pdf", "playwright", "web-archiving", "ai-agents"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP :: Browsers",
+    "Topic :: Text Processing :: Markup :: HTML",
+]
+dependencies = [
+    "mcp>=1.2.0,<2",  # mcp 2.x removed the low-level decorator API used here
+    "playwright>=1.40.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/PascalThesing/browserpdfmcp"
+Repository = "https://github.com/PascalThesing/browserpdfmcp"
+Issues = "https://github.com/PascalThesing/browserpdfmcp/issues"
+
+[project.scripts]
+browser-pdf-mcp = "browser_pdf_mcp.server:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/browser_pdf_mcp/__init__.py"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not integration'"
+markers = [
+    "integration: tests that launch a real browser and hit the network (run with '-m integration')",
+]
+asyncio_mode = "auto"
